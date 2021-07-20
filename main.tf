@@ -13,7 +13,7 @@ provider "aws" {
 
 resource "aws_instance" "test-instance" {
   ami= "ami-0dc2d3e4c0f9ebd18"
-  instance_type = "t3a.micro"
+  instance_type = "t2.micro"
   tags = {
       Name = "test-instance"
       Environment = "Dev"
