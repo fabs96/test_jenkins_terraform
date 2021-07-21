@@ -51,7 +51,7 @@ resource "aws_instance" "test-instance" {
     ]
   }
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${aws_instance.test-instance.public_ip}, --private-key ${file(var.private_key)} playbook.yml" 
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${aws_instance.test-instance.public_ip}, --private-key ${var.private_key} playbook.yml -e 'ansible_python_interpreter=/usr/bin/python3'" 
   }
 
   //provisioner "local-exec" {
