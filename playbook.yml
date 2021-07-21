@@ -3,6 +3,10 @@
   remote_user: ubuntu
   become: yes
   tasks:
+    - name: Add an apt signing key for Docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present 
     - name: update apt cache
       apt: update_cache=yes cache_valid_time=3600
     - name: update all packages
@@ -19,12 +23,9 @@
           - curl 
           - software-properties-common
           - gnupg-agent
-    - name: Add an apt signing key for Docker
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present 
-    - name: update apt cache
-      apt: update_cache=yes cache_valid_time=3600    
+    - name: add docker repo
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable  
     - name: Install Docker
       apt:
         name: "{{ packages }}"

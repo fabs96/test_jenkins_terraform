@@ -21,4 +21,4 @@ egress_rules = [{
 }    
 ]
 
-private_key="C:\\Users\\Fabrizzio\\.ssh\\aws_conn_creds.pem"
+private_key="~/.ssh/aws_conn_creds.pem"
