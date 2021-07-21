@@ -1,0 +1,44 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    - name: update apt cache
+      apt: update_cache=yes cache_valid_time=3600
+    - name: update all packages
+      apt: upgrade=dist
+    - name: Install dependencies
+      apt: 
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - apt-transport-https
+          - ca-certificates
+          - curl 
+          - software-properties-common
+          - gnupg-agent
+    - name: Add an apt signing key for Docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present 
+    - name: Install Docker
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+        - docker-ce
+        - docker-ce-cli 
+        - containerd.io
+    - name: instalar docker compose
+      apt: 
+        name: docker-compose
+        state: present
+    - name: Add user to docker group
+      user:
+        name: "{{ansible_user}}"
+        group: docker
+
