@@ -21,5 +21,3 @@ variable region {
 variable security_group {
 
 }
-
-variable build_number {}
